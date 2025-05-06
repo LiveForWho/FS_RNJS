@@ -7,7 +7,7 @@ function App() {
       const res = await axios.get(`/v1/api/`);
       console.log("check res: ", res);
     };
-    fetchHelloWorld;
+    fetchHelloWorld();
   }, []);
 
   return <>Hello World</>;
