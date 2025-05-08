@@ -20,6 +20,35 @@ const createUserService = async (name, email, password) => {
   }
 };
 
+const loginService = async (email, password) => {
+  try {
+    //fetch user by email
+    const user = await User.findOne({ email: email });
+    if (user) {
+      //compare password
+      const isMatchPassword = await bcrypt.compare(password, user.password);
+      if (!isMatchPassword) {
+        return {
+          EC: 2,
+          EM: "Password ko hop le",
+        };
+      } else {
+        //create access token
+        return "create access token";
+      }
+    } else {
+      return {
+        EC: 1,
+        EM: "Email/Password ko hop le",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 module.exports = {
   createUserService,
+  loginService,
 };
