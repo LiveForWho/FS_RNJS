@@ -11,7 +11,12 @@ const auth = (req, res, next) => {
       //verify
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log("check token: ", decoded);
+        req.user = {
+          email: decoded.email,
+          name: decoded.name,
+          createdBy: "dohuynhtai",
+        };
+        //console.log("check token:", decoded);
       } catch (error) {
         return res.status(401).json({
           message: " token bị hết hạn hoặc không hợp lệ",
